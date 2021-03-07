@@ -28,6 +28,7 @@ def NSE(obs: list, sim: list) -> float:
     else:
         NSE = 1 - (numerator/denominator)
         NSE = round(NSE,3)
+    print("NSE")
     return NSE
 
 def PBIAS(obs: list, sim: list) -> float:
@@ -38,6 +39,7 @@ def PBIAS(obs: list, sim: list) -> float:
     else:
         pbias = 100*(numerator/denominator)
         pbias = round(pbias,3)
+    print("PBIAS")
     return pbias
 
 
@@ -45,17 +47,28 @@ def R2(obs: list, sim: list) -> float:
     corr = np.corrcoef(obs,sim)
     corr = corr[0,1]
     R2 = round(corr**2,3)
+    print("R2")
     return R2
 
 def RMSE(obs: list, sim: list) -> float:
     RMSE = np.sqrt(((sim-obs)**2).mean())
+    RMSE = round(RMSE,3)
     print("RMSE:")
     return RMSE
 
+
+
 # Read data file (excel)
-sample =  pd.read_excel('sample.xlsx',sheet_name='Sheet1', engine='openpyxl')
-obs = sample['obs']
-sim = sample['sim']
+data =  pd.read_excel('streamflow_andong.xlsx',sheet_name='Sheet1', engine='openpyxl')
+obs = data['obs']
+sim = data['sim']
+
+#Function check
+print(NSE(obs, sim))
+print(PBIAS(obs,sim))
+print(R2(obs,sim))
+print(RMSE(obs,sim))
+
 
 # Scatter plot comparison
 pt.figure(figsize= (6,6))
@@ -78,15 +91,11 @@ pt.xticks(fontsize=14)
 pt.yticks(fontsize=14)
 pt.show()
 
-# Line plot
-print(type(sample['Date']))
-sample['Date'] = pd.to_datetime(sample['Date'])
-print(type(sample['Date']))
-sample_data =  pd.read_excel('sample.xlsx',sheet_name='Sheet1', engine='openpyxl')
 
-# sns.scatterplot(x='obs',y='sim',data=sample_data)
-# line, ax = pt.subplots()
-# ax = 
+#Line plot
+sample_data =  pd.read_excel('streamflow_andong.xlsx',sheet_name='Sheet1', engine='openpyxl')
+sample_data['Date'] = pd.to_datetime(sample_data['Date'])
+
 pt.figure(figsize= (12,8))
 sns.lineplot(x='Date',y='obs',data=sample_data,label = "Observation",linewidth=3)
 sns.lineplot(x='Date',y='sim',data=sample_data, label = 'Simulation',linewidth=3)
