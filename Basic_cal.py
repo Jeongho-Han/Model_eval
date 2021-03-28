@@ -29,7 +29,6 @@ class BasicStat:
 
 # Normalized NSE: NSE=1 corresponds to NNSE=1, NSE=0 corresponds to NNSE=0.5, and NSE=-∞ corresponds to NNSE=0.
         NNSE = round(1/(2-NSE),3)        
-
         print("NSE: ", NSE)
         print("NNSE: ", NNSE)
         # return NSE

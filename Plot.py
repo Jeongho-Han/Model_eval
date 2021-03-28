@@ -59,7 +59,6 @@ pt.yticks(fontsize=14)
 pt.show()
 
 #Line plot
-
 pt.figure(figsize= (12,8))
 sns.lineplot(x='Date',y='obs',data=data,label = "Observation",linewidth=3)
 sns.lineplot(x='Date',y='sim',data=data, label = 'Simulation',linewidth=3)
