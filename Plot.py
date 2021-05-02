@@ -26,9 +26,9 @@ elif file_extension == ".csv":
     data =  pd.read_csv(data_path)
 
 data['Date'] = pd.to_datetime(data['Date'])   #Read date
-date = data['Date']
-obs = data['obs']
-sim = data['sim']
+# date = data['Date']
+obs = data['Measurement']
+sim = data['Simulation']
 
 #Print statistic criteria
 criteria = BasicStat(obs, sim)  #define parameters

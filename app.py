@@ -74,7 +74,6 @@ def parse_contents(contents, filename, date):
         ])
 
     df['Date'] = pd.to_datetime(df['Date'])   #Read date
-    date = df['Date']
     obs = df['Measurement']
     sim = df['Simulation']
 
@@ -110,45 +109,12 @@ def parse_contents(contents, filename, date):
     Input('upload-data', 'contents'),
     State('upload-data', 'filename'),
     State('upload-data', 'last_modified'))
-# def update_figure(contents, names, dates):
-#     content_type, content_string = contents.split(',')
-
-#     decoded = base64.b64decode(content_string)
-#     try:
-#         if 'csv' in names:
-#             # Assume that the user uploaded a CSV file
-#             df = pd.read_csv(
-#                 io.StringIO(decoded.decode('utf-8')))
-#         elif 'xls' in names:
-#             # Assume that the user uploaded an excel file
-#             df = pd.read_excel(io.BytesIO(decoded))
-#     except Exception as e:
-#         print(e)
-#         return html.Div([
-#             'There was an error processing this file.'
-#         ])
-#     df['Date'] = pd.to_datetime(df['Date'])   #Read date
-#     date = df['Date']
-#     obs = df['obs']
-#     sim = df['sim']
-
-#     fig = px.line(df, x="Date", y=df.columns,
-#                 hover_data={"Date": "|%B %d, %Y"},
-#                 title='Prediction VS Observation')
-#     fig.update_xaxes(
-#         # dtick="M6",
-#         tickformat="%m\n%Y")
-#     fig.update_layout(
-#         xaxis_title = "Date",
-#         yaxis_title = "",
-#         legend_title = "")
-#     return fig
 def update_output(list_of_contents, list_of_names, list_of_dates):
     if list_of_contents is not None:
         children = [
             parse_contents(c, n, d) for c, n, d in
             zip(list_of_contents, list_of_names, list_of_dates)]
-        return fig, children
+        return children
 
 if __name__ == '__main__':
     app.run_server(debug=True)
